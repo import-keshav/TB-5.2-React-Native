@@ -1,11 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {SafeAreaView} from 'expo';
-import Button from './components/Button';
+// import NumberButton from './components/NumberButton';
+import NumberButtonsArray from './components/NumberButtonsArray_1';
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <Button backgroundColor="black" color="white" onPress={()=>{console.log("button pressed hard")}}/>
+      <View style={styles.container}>
+
+      </View>
+      <View style={styles.container}>
+         
+      </View>      
+      {/* <NumberButton backgroundColor="black" color="white" title="7" onPress={()=>{console.log("button pressed hard")}}/> */}
+      <NumberButtonsArray/>
     </View>
   );
 }
@@ -13,8 +21,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
