@@ -11,9 +11,9 @@ class NumberButton extends React.Component{
 
   render(){
     const {details, title}=this.props;
-    const {onPress,backgroundColor,color}=details;
+    const {backgroundColor,color,onPress}=details;
     return(
-      <TouchableOpacity onPress={onPress} style={[styles.container,{backgroundColor: backgroundColor}]}>
+      <TouchableOpacity onPress={()=>{onPress(title)}} style={[styles.container,{backgroundColor: backgroundColor}]}>
         <Text style={[styles.text,{color: color}]}>{title}</Text>
       </TouchableOpacity>
     )

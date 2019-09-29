@@ -17,7 +17,6 @@ container:{
   width:Dimensions.get('window').width,
   justifyContent:"flex-end",
   alignItems:"flex-end",
-  borderWidth:1,
   marginBottom:20,
 },
 textExp:{
