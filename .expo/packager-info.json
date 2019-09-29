@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://xb-m5d.astitvasinghal.tb-5-2-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.xb-m5d.astitvasinghal.tb-5-2-react-native.exp.direct",
-  "ngrokPid": 21395,
+  "expoServerNgrokUrl": "https://xb-m5d.import-keshav.tb-5-2-react-native.exp.direct",
+  "packagerNgrokUrl": "https://packager.xb-m5d.import-keshav.tb-5-2-react-native.exp.direct",
+  "ngrokPid": 14273,
   "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 21362
+  "packagerPid": 14243
 }
