@@ -1,14 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Dimensions } from 'react-native';
 // import NumberButton from './components/NumberButton';
 import NumberButtonsArray from './components/NumberButtonsArray_1';
-
+const {height,width} = Dimensions.get('window');
 export default class App extends React.Component {
   render(){
     return (
+      <View>
       <View style={styles.container}>
-        {/* <NumberButton backgroundColor="black" color="white" title="7" onPress={()=>{console.log("button pressed hard")}}/> */}
+      </View>
+      <View style={styles.container}>
         <NumberButtonsArray/>
+      </View>
       </View>
     );
   }
@@ -17,7 +20,8 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:height/2,
+    width:width/4
     // backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center',
