@@ -3,19 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 // import NumberButton from './components/NumberButton';
 import NumberButtonsArray from './components/NumberButtonsArray_1';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
+export default class App extends React.Component {
+  render(){
+    return (
       <View style={styles.container}>
-
+        {/* <NumberButton backgroundColor="black" color="white" title="7" onPress={()=>{console.log("button pressed hard")}}/> */}
+        <NumberButtonsArray/>
       </View>
-      <View style={styles.container}>
-         
-      </View>      
-      {/* <NumberButton backgroundColor="black" color="white" title="7" onPress={()=>{console.log("button pressed hard")}}/> */}
-      <NumberButtonsArray/>
-    </View>
-  );
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({
