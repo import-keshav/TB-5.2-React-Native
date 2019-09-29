@@ -1,17 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity,Dimensions } from 'react-native';
+
 const {height,width} = Dimensions.get('window');
-export default class Button extends React.Component{
+
+class NumberButton extends React.Component{
   constructor(props)
   {
     super(props);
-
   }
+
   render(){
-    const {backgroundColor,color,onPress}=this.props;
+    const {backgroundColor,color,onPress, title}=this.props;
     return(
       <TouchableOpacity onPress={onPress} style={[styles.container,{backgroundColor:backgroundColor}]}>
-        <Text style={[styles.text,{color:color}]}>7</Text>
+        <Text style={[styles.text,{color:color}]}>{title}</Text>
       </TouchableOpacity>
     )
   }
@@ -27,5 +29,8 @@ const styles= StyleSheet.create({
   },
   text:{
     fontSize:40,
-  }
+  },
 })
+
+
+export default NumberButton;
