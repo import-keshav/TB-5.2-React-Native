@@ -4,9 +4,12 @@ import {
     View,
     ActivityIndicator,
     ScrollView,
+    StyleSheet,
+    Dimensions,
 } from 'react-native';
 
 import * as SQLite from 'expo-sqlite';
+const {height,width}=Dimensions.get('window');
 
 
 class History extends React.Component {
@@ -28,16 +31,16 @@ class History extends React.Component {
             (transaction, success) => {
               history = success.rows._array;
               console.log(history);
-              history=history.map((item)=>{
+              history=history.map((item,index)=>{
                 return(
-                <View >
-                  <Text>{item.input}</Text>
-                  <Text>{item.output}</Text>
+                <View style={styles.container} key={index}>
+                  <Text style={styles.textExp}>{item.input}</Text>
+                  <Text style={styles.textAns}>{item.output}</Text>
                 </View>
                 )
               })
               this.setState({history: history,loading:false});
-              
+
 
             },
             (transaction, error) => {
@@ -48,19 +51,34 @@ class History extends React.Component {
 
     }
     render() {
-        
+
       return (
         <ScrollView>
-          {this.state.loading && 
+          {this.state.loading &&
             <ActivityIndicator size="large" color="blue"/>
           }
           {!this.state.loading &&
           this.state.history
-            
+
           }
         </ScrollView>
       )
     }
   }
-
+const styles=StyleSheet.create({
+  textExp:{
+    color:"black",
+    fontSize:30,
+  },
+  textAns:{
+    color:"black",
+    fontSize:15
+  },
+  container:{
+    alignItems:"flex-end",
+    justifyContent:"center",
+    width:width,
+    marginBottom:15,
+  }
+})
 export default History;

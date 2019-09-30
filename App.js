@@ -10,13 +10,14 @@ const {height,width} = Dimensions.get('window');
 
 import * as SQLite from 'expo-sqlite';
 
-
+const database = SQLite.openDatabase('calculator');
 class CalculatorCore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       exp: "",
       ans: "",
+      key:0
     }
   }
 
@@ -24,13 +25,14 @@ class CalculatorCore extends React.Component {
     var {exp, ans} = this.state;
 
     if(text === "DEL") {
+      console.log(typeof(exp));
       exp = exp.slice(0,(exp.length-1));
-      if(isNaN(Number(exp.slice(-1)))) {
+      if(isNaN(Number(exp.slice(-1))) || exp.length===0) {
         this.setState({exp,ans});
       }
       else {
         ans=eval(exp);
-        this.setState({exp,ans});
+        this.setState({exp,ans:ans.toString()});
       }
     }
     else if(text === "=") {
@@ -38,24 +40,23 @@ class CalculatorCore extends React.Component {
         return
       }
       console.log(exp, ans)
-      var database = SQLite.openDatabase('calculator');
-      database.transaction(
-        (transaction) => {
-          var sql_query = "INSERT INTO history(input, output) VALUES (" + "'" + exp + "'"  + "," + "'" + ans + "'" + ")";
-          transaction.executeSql(
-            sql_query,
-            [],
-            (transaction, success) => {
-              exp = ans;
-              ans = '';
-              this.setState({exp,ans});
-            },
-            (transaction, error) => {
-              console.log(error.message);
-            }
-          )
-        },
-      );
+
+    database.transaction(
+      (transaction) => {
+        transaction.executeSql(
+          "INSERT INTO history(input, output) VALUES(?,?)",
+          [exp,ans],
+          (transaction, success) => {
+            exp = ans;
+            ans = '';
+            this.setState({exp,ans});
+          },
+          (transaction, error) => {
+            console.log(error.message);
+          }
+        )
+      },
+    );
     }
     else if(isNaN(Number(text))) {
       exp=exp+text;
@@ -64,13 +65,12 @@ class CalculatorCore extends React.Component {
     else {
       exp=exp+text;
       ans=eval(exp);
-      this.setState({exp,ans});
+      this.setState({exp,ans:ans.toString()});
     }
   }
 
 
-  render(){
-          /* Creating Table for storing History */ 
+  coponentDidMount(){
     var database = SQLite.openDatabase('calculator');
     database.transaction(
       (transaction) => {
@@ -80,9 +80,12 @@ class CalculatorCore extends React.Component {
           [],
           (transaction, error) => {
             console.log(error.message);
-          });
+          },
+        );
         });
+  }
 
+  render(){
     const {exp,ans} = this.state;
     return (
       <View>
@@ -102,7 +105,8 @@ class CalculatorCore extends React.Component {
 const styles = StyleSheet.create({
   container: {
     height:height/2,
-    width:width/4
+    width:width/4,
+
   },
 });
 

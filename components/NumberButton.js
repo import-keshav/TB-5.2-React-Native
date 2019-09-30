@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text, 
-  TouchableOpacity, 
+  Text,
+  TouchableOpacity,
   Dimensions } from 'react-native';
 
 const {height,width} = Dimensions.get('window');
@@ -15,9 +15,9 @@ class NumberButton extends React.Component{
 
   render(){
     const {details, title}=this.props;
-    const {backgroundColor,color,onPress}=details;
+    const {backgroundColor,color,onPress,height,width}=details;
     return(
-      <TouchableOpacity onPress={()=>{onPress(title)}} style={[styles.container,{backgroundColor: backgroundColor}]}>
+      <TouchableOpacity onPress={()=>{onPress(title)}} style={[styles.container,{backgroundColor: backgroundColor,height:height,width:width}]}>
         <Text style={[styles.text,{color: color}]}>{title}</Text>
       </TouchableOpacity>
     )
