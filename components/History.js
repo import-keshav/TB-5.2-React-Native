@@ -30,7 +30,7 @@ class History extends React.Component {
               console.log(history);
               history=history.map((item)=>{
                 return(
-                <View>
+                <View >
                   <Text>{item.input}</Text>
                   <Text>{item.output}</Text>
                 </View>
