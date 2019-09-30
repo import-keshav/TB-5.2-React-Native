@@ -3,11 +3,12 @@ import { StyleSheet, Text, View,Dimensions } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
-
+import History from './components/History';
 import NumberButtonsArray from './components/NumberButtonsArray_1';
 import Output from './components/Output';
 const {height,width} = Dimensions.get('window');
 
+import * as SQLite from 'expo-sqlite';
 
 
 class CalculatorCore extends React.Component {
@@ -32,6 +33,30 @@ class CalculatorCore extends React.Component {
         this.setState({exp,ans});
       }
     }
+    else if(text === "=") {
+      if (exp.length === 0 || ans.length === 0) {
+        return
+      }
+      console.log(exp, ans)
+      var database = SQLite.openDatabase('calculator');
+      database.transaction(
+        (transaction) => {
+          var sql_query = "INSERT INTO history(input, output) VALUES (" + "'" + exp + "'"  + "," + "'" + ans + "'" + ")";
+          transaction.executeSql(
+            sql_query,
+            [],
+            (transaction, success) => {
+              exp = ans;
+              ans = '';
+              this.setState({exp,ans});
+            },
+            (transaction, error) => {
+              console.log(error.message);
+            }
+          )
+        },
+      );
+    }
     else if(isNaN(Number(text))) {
       exp=exp+text;
       this.setState({exp,ans});
@@ -45,6 +70,19 @@ class CalculatorCore extends React.Component {
 
 
   render(){
+          /* Creating Table for storing History */ 
+    var database = SQLite.openDatabase('calculator');
+    database.transaction(
+      (transaction) => {
+        var create_table_sql_query = "CREATE TABLE history(input varchar(1000), output varchar(1000));";
+        transaction.executeSql(
+          create_table_sql_query,
+          [],
+          (transaction, error) => {
+            console.log(error.message);
+          });
+        });
+
     const {exp,ans} = this.state;
     return (
       <View>
@@ -60,16 +98,6 @@ class CalculatorCore extends React.Component {
 
 }
 
-
-class History extends React.Component {
-  render() {
-    return (
-      <View>
-        <Text>History</Text>
-      </View>
-    )
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
