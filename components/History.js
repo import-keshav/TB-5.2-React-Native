@@ -22,6 +22,8 @@ class History extends React.Component {
       }
     }
     componentDidMount(){
+      const {navigation}=this.props;
+      this.focusListener = navigation.addListener('didFocus', () => {
         var history = [];
         var database = SQLite.openDatabase('calculator');
         database.transaction(
@@ -30,7 +32,7 @@ class History extends React.Component {
             [],
             (transaction, success) => {
               history = success.rows._array;
-              console.log(history);
+              //console.log(history);
               history=history.map((item,index)=>{
                 return(
                 <View style={styles.container} key={index}>
@@ -49,6 +51,9 @@ class History extends React.Component {
           ),
         );
 
+        
+      });
+      
     }
     render() {
 

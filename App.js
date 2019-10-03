@@ -70,7 +70,8 @@ class CalculatorCore extends React.Component {
   }
 
 
-  coponentDidMount(){
+  componentDidMount(){
+    console.log("inside component");
     var database = SQLite.openDatabase('calculator');
     database.transaction(
       (transaction) => {
